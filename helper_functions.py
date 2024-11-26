@@ -1,9 +1,30 @@
-### We create a bunch of helpful functions for this project.
+### I create a bunch of helpful functions for this project.
 ### Storing them here so they're easily accessible.
-### You can download these helper function in: 
+### You can download these helper functions in: 
+### https://raw.githubusercontent.com/Garcialejan/Computer_vision_food_classification/refs/heads/main/helper_functions.py
+
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import os
+import random
+
+def view_random_image(target_dir, dataset_image):
+  target_class = random.choice(dataset_image.class_names) # choose a random class
+  target_dir = target_dir + "/" + target_class # create the target directory
+  random_image = random.choice(os.listdir(target_dir)) # choose a random image from target directory
+  random_image_path = target_dir + "/" + random_image # create the choosen random image path
+  img = mpimg.imread(random_image_path) # read in the chosen target image
+
+  plt.imshow(img) # plot the target image
+  plt.title(f"Original random image from class: {target_class}")
+  plt.axis(False); # turn off the axes
+
+  print(f"Image shape: {img.shape}") # show the shape of the image
+
+  return img
+
 
 import tensorflow as tf
-
 # Create a function to import an image and resize it to be able to be used with our model
 def load_and_prep_image(filename, img_shape=224, scale=True):
   """
@@ -27,6 +48,8 @@ def load_and_prep_image(filename, img_shape=224, scale=True):
     return img/255.
   else:
     return img
+
+
 
 # Note: The following confusion matrix code is a remix of Scikit-Learn's 
 # plot_confusion_matrix function - https://scikit-learn.org/stable/modules/generated/sklearn.metrics.plot_confusion_matrix.html
@@ -110,6 +133,8 @@ def make_confusion_matrix(y_true, y_pred, classes=None, figsize=(10, 10), text_s
   if savefig:
     fig.savefig("confusion_matrix.png")
   
+  
+
 # Make a function to predict on images and plot them (works with multi-class)
 def pred_and_plot(model, filename, class_names):
   """
@@ -132,26 +157,9 @@ def pred_and_plot(model, filename, class_names):
   plt.imshow(img)
   plt.title(f"Prediction: {pred_class}")
   plt.axis(False);
-  
-import datetime
+ 
+ 
 
-def create_tensorboard_callback(dir_name, experiment_name):
-  """
-  Creates a TensorBoard callback instand to store log files.
-
-  Stores log files with the filepath:
-    "dir_name/experiment_name/current_datetime/"
-
-  Args:
-    dir_name: target directory to store TensorBoard log files
-    experiment_name: name of experiment directory (e.g. efficientnet_model_1)
-  """
-  log_dir = dir_name + "/" + experiment_name + "/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-  tensorboard_callback = tf.keras.callbacks.TensorBoard(
-      log_dir=log_dir
-  )
-  print(f"Saving TensorBoard log files to: {log_dir}")
-  return tensorboard_callback
 
 # Plot the validation and training data separately
 import matplotlib.pyplot as plt
@@ -185,6 +193,8 @@ def plot_loss_curves(history):
   plt.title('Accuracy')
   plt.xlabel('Epochs')
   plt.legend();
+
+
 
 def compare_historys(original_history, new_history, initial_epochs=5):
     """
@@ -229,7 +239,9 @@ def compare_historys(original_history, new_history, initial_epochs=5):
     plt.title('Training and Validation Loss')
     plt.xlabel('epoch')
     plt.show()
-  
+
+
+
 # Create function to unzip a zipfile into current working directory 
 # (since we're going to be downloading and unzipping a few files)
 import zipfile
@@ -249,6 +261,8 @@ def unzip_data(filename):
 # are in each subdirectory.
 import os
 
+
+
 def walk_through_dir(dir_path):
   """
   Walks through dir_path returning its contents.
@@ -264,7 +278,9 @@ def walk_through_dir(dir_path):
   """
   for dirpath, dirnames, filenames in os.walk(dir_path):
     print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
-    
+
+
+
 # Function to evaluate: accuracy, precision, recall, f1-score
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
