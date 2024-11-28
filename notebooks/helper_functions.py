@@ -48,6 +48,19 @@ def load_and_prep_image(filename, img_shape=224, scale=True):
     return img/255.
   else:
     return img
+  
+  
+def create_checkpoint_callback(checkpoint_path: str,
+                                 checkpoint_name: str):
+    '''
+    Function to create a checkpoint callback for the
+    models that we create.
+    '''
+    chk_callback_model = tf.keras.callbacks.ModelCheckpoint(checkpoint_path + checkpoint_name,
+                                                            save_weights_only=True,
+                                                            save_best_only=True, # save only the best model weights instead of a model every epoch
+                                                            save_freq="epoch") # save every epoch)
+    return chk_callback_model
 
 
 
