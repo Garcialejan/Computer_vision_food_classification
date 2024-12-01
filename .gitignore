@@ -1,2 +1,4 @@
 **/data/
 **/__pycache__/
+/home/alejandro/proyectos_tensorflow/Computer_vision_food_classification/101_classes_10_percent_data_model/model1_checkpoint.weights.h5
+/home/alejandro/proyectos_tensorflow/Computer_vision_food_classification/101_classes_10_percent_data_model/model3_checkpoint.weights.h5
